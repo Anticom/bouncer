@@ -217,4 +217,52 @@ class Helpers
 
         return new Collection($partitions);
     }
+
+    /**
+     * Extract the value of a backed enum, pass through string otherwise.
+     *
+     * @param string|\BackedEnum $enum
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function unwrapEnum($enum)
+    {
+        // If we get passed in a string, we don't need to do anything to it
+        if(is_string($enum)) {
+            return $enum;
+        }
+
+        // PHP version gate
+        if (version_compare(PHP_VERSION, '8.1.0', '<')) {
+            throw new InvalidArgumentException("Only strings are supported for this PHP version");
+        }
+
+        // The only other supported variant are BackedEnums now
+        if(!$enum instanceof \BackedEnum) {
+            throw new  InvalidArgumentException("Only strings and BackedEnums are supported");
+        }
+
+        // Make sure the backing type is string
+        $enumReflection = new \ReflectionEnum($enum);
+        if($enumReflection->getBackingType()->getName() !== 'string') {
+            throw new InvalidArgumentException("The enum must be backed by strings");
+        }
+
+        // Unwrap the value
+        return $enum->value;
+    }
+
+    /**
+     * Extract the value of backed enums, pass through strings.
+     *
+     * @param string[]|\BackedEnum[]||string|\BackedEnum $enums
+     * @return array
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function unwrapEnums($enums)
+    {
+        return array_map([self::class, 'unwrapEnum'], (array) $enums);
+    }
 }
