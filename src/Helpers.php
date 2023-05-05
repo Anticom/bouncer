@@ -23,7 +23,7 @@ class Helpers
     {
         if (! in_array($operator, ['and', 'or'])) {
             throw new InvalidArgumentException(
-                "{$logicalOperator} is an invalid logical operator"
+                "{$operator} is an invalid logical operator"
             );
         }
     }
