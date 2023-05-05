@@ -11,13 +11,13 @@ class Roles
      * Constrain the given query by the provided role.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function constrainWhereIs($query, ...$roles)
     {
         return $query->whereHas('roles', function ($query) use ($roles) {
-            $query->whereIn('name', $roles);
+            $query->whereIn('name', Helpers::unwrapEnums($roles));
         });
     }
 
@@ -25,13 +25,13 @@ class Roles
      * Constrain the given query by all provided roles.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function constrainWhereIsAll($query, ...$roles)
     {
         return $query->whereHas('roles', function ($query) use ($roles) {
-            $query->whereIn('name', $roles);
+            $query->whereIn('name', Helpers::unwrapEnums($roles));
         }, '=', count($roles));
     }
 
@@ -39,13 +39,13 @@ class Roles
      * Constrain the given query by the provided role.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function constrainWhereIsNot($query, ...$roles)
     {
         return $query->whereDoesntHave('roles', function ($query) use ($roles) {
-            $query->whereIn('name', $roles);
+            $query->whereIn('name', Helpers::unwrapEnums($roles));
         });
     }
 

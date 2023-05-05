@@ -28,7 +28,7 @@ class HandlesOwnership
     /**
      * The abilities to which ownership is restricted.
      *
-     * @var string|string[]
+     * @var string[]|\BackedEnum[]|string|\BackedEnum
      */
     protected $ability = '*';
 
@@ -49,7 +49,7 @@ class HandlesOwnership
     /**
      * Limit ownership to the given ability.
      *
-     * @param  string|string[]  $ability
+     * @param  string[]|\BackedEnum[]|string|\BackedEnum  $ability
      * @param  array  $attributes
      * @return void
      */

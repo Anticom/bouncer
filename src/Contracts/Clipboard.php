@@ -11,7 +11,7 @@ interface Clipboard
      * Determine if the given authority has the given ability.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string|null  $model
      * @return bool
      */
@@ -21,7 +21,7 @@ interface Clipboard
      * Determine if the given authority has the given ability, and return the ability ID.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string|null  $model
      * @return int|bool|null
      */
@@ -31,7 +31,7 @@ interface Clipboard
      * Check if an authority has the given roles.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  array|string  $roles
+     * @param  string[]|\BackedEnum[]|string|\BackedEnum  $roles
      * @param  string  $boolean
      * @return bool
      */

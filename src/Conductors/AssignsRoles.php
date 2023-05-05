@@ -19,7 +19,7 @@ class AssignsRoles
     /**
      * Constructor.
      *
-     * @param \Illuminate\Support\Collection|\Silber\Bouncer\Database\Role|string  $roles
+     * @param \Illuminate\Support\Collection|\Silber\Bouncer\Database\Role|string|\BackedEnum  $roles
      */
     public function __construct($roles)
     {

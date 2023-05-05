@@ -116,7 +116,7 @@ class Guard
      * Run the gate's "before" callback.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  mixed  $arguments
      * @param  mixed  $additional
      * @return bool|null
@@ -140,7 +140,7 @@ class Guard
      * Run the gate's "before" callback.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  mixed  $result
      * @param  array  $arguments
      * @return bool|null
@@ -168,7 +168,7 @@ class Guard
      * Run an auth check at the clipboard.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string|null  $model
      * @return mixed
      */

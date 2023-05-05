@@ -67,7 +67,7 @@ class CachedClipboard extends BaseClipboard implements Contracts\CachedClipboard
      * Determine if the given authority has the given ability, and return the ability ID.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string|null  $model
      * @return int|bool|null
      */
@@ -137,12 +137,14 @@ class CachedClipboard extends BaseClipboard implements Contracts\CachedClipboard
     /**
      * Compile a list of ability identifiers that match the provided parameters.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string|null  $model
      * @return \Illuminate\Support\Collection
      */
     protected function compileAbilityIdentifiers($ability, $model)
     {
+        $ability = Helpers::unwrapEnum($ability);
+
         $identifiers = new BaseCollection(
             is_null($model)
                 ? [$ability, '*-*', '*']
@@ -157,12 +159,14 @@ class CachedClipboard extends BaseClipboard implements Contracts\CachedClipboard
     /**
      * Compile a list of ability identifiers that match the given model.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string  $model
      * @return array
      */
     protected function compileModelAbilityIdentifiers($ability, $model)
     {
+        $ability = Helpers::unwrapEnum($ability);
+
         if ($model === '*') {
             return ["{$ability}-*", "*-*"];
         }

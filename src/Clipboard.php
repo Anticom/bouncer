@@ -11,12 +11,14 @@ class Clipboard extends BaseClipboard
      * Determine if the given authority has the given ability, and return the ability ID.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string|null  $model
      * @return int|bool|null
      */
     public function checkGetId(Model $authority, $ability, $model = null)
     {
+        $ability = Helpers::unwrapEnum($ability);
+
         if ($this->isForbidden($authority, $ability, $model)) {
             return false;
         }
@@ -30,7 +32,7 @@ class Clipboard extends BaseClipboard
      * Determine whether the given ability request is explicitely forbidden.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string|null  $model
      * @return bool
      */
@@ -47,7 +49,7 @@ class Clipboard extends BaseClipboard
      * Returns null if the ability is not allowed.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string|null  $model
      * @return \Illuminate\Database\Eloquent\Model|null
      */
@@ -62,7 +64,7 @@ class Clipboard extends BaseClipboard
      * Get the query for where the given authority has the given ability.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  string $ability
+     * @param  string|\BackedEnum $ability
      * @param  \Illuminate\Database\Eloquent\Model|string|null  $model
      * @param  bool  $allowed
      * @return \Illuminate\Database\Eloquent\Builder
@@ -79,14 +81,14 @@ class Clipboard extends BaseClipboard
             return $this->constrainToSimpleAbility($query, $ability);
         }
 
-        return $query->byName($ability)->forModel($model);
+        return $query->byName(Helpers::unwrapEnum($ability))->forModel($model);
     }
 
     /**
      * Constrain the query to the given non-model ability.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @return \Illuminate\Database\Eloquent\Builder
      */
     protected function constrainToSimpleAbility($query, $ability)

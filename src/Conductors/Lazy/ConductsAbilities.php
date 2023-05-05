@@ -14,7 +14,7 @@ class ConductsAbilities
     /**
      * The abilities to which ownership is restricted.
      *
-     * @var string|string[]
+     * @var string[]|\BackedEnum[]|string|\BackedEnum
      */
     protected $abilities;
 

@@ -10,7 +10,7 @@ trait Authorizable
     /**
      * Determine if the authority has a given ability.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|null  $model
      * @return bool
      */
@@ -24,7 +24,7 @@ trait Authorizable
     /**
      * Determine if the authority does not have a given ability.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|null  $model
      * @return bool
      */
@@ -36,7 +36,7 @@ trait Authorizable
     /**
      * Determine if the authority does not have a given ability.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|null  $model
      * @return bool
      */

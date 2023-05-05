@@ -16,7 +16,7 @@ abstract class BaseClipboard implements Contracts\Clipboard
      * Determine if the given authority has the given ability.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string|null  $model
      * @return bool
      */
@@ -29,7 +29,7 @@ abstract class BaseClipboard implements Contracts\Clipboard
      * Check if an authority has the given roles.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  array|string  $roles
+     * @param  string[]|\BackedEnum[]|string|\BackedEnum  $roles
      * @param  string  $boolean
      * @return bool
      */
@@ -50,14 +50,14 @@ abstract class BaseClipboard implements Contracts\Clipboard
      * Count the authority's roles matching the given roles.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $authority
-     * @param  array|string  $roles
+     * @param  string[]|\BackedEnum[]||string|\BackedEnum  $roles
      * @return int
      */
     protected function countMatchingRoles($authority, $roles)
     {
         $lookups = $this->getRolesLookup($authority);
 
-        return count(array_filter($roles, function ($role) use ($lookups) {
+        return count(array_filter(Helpers::unwrapEnums($roles), function ($role) use ($lookups) {
             switch (true) {
                 case is_string($role):
                     return $lookups['names']->has($role);

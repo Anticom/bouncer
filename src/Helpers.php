@@ -169,14 +169,14 @@ class Helpers
     public static function toArray($value)
     {
         if (is_array($value)) {
-            return $value;
+            return self::unwrapEnums($value);
         }
 
         if ($value instanceof Collection) {
-            return $value->all();
+            return self::unwrapEnums($value->all());
         }
 
-        return [$value];
+        return [self::unwrapEnum($value)];
     }
 
     /**

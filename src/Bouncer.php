@@ -148,7 +148,7 @@ class Bouncer
     /**
      * Start a chain, to assign the given role to a model.
      *
-     * @param  \Silber\Bouncer\Database\Role|\Illuminate\Support\Collection|string  $roles
+     * @param  \Silber\Bouncer\Database\Role|\Illuminate\Support\Collection|string|\BackedEnum  $roles
      * @return \Silber\Bouncer\Conductors\AssignsRoles
      */
     public function assign($roles)
@@ -159,7 +159,7 @@ class Bouncer
     /**
      * Start a chain, to retract the given role from a model.
      *
-     * @param  \Illuminate\Support\Collection|\Silber\Bouncer\Database\Role|string  $roles
+     * @param  \Illuminate\Support\Collection|\Silber\Bouncer\Database\Role|string|\BackedEnum  $roles
      * @return \Silber\Bouncer\Conductors\RemovesRoles
      */
     public function retract($roles)
@@ -339,7 +339,7 @@ class Bouncer
     /**
      * Define a new ability using a callback.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  callable|string  $callback
      * @return $this
      *
@@ -353,7 +353,7 @@ class Bouncer
     /**
      * Determine if the given ability should be granted for the current user.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  array|mixed  $arguments
      * @return \Illuminate\Auth\Access\Response
      *
@@ -361,19 +361,19 @@ class Bouncer
      */
     public function authorize($ability, $arguments = [])
     {
-        return $this->gate()->authorize($ability, $arguments);
+        return $this->gate()->authorize(Helpers::unwrapEnum($ability), $arguments);
     }
 
     /**
      * Determine if the given ability is allowed.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  array|mixed  $arguments
      * @return bool
      */
     public function can($ability, $arguments = [])
     {
-        return $this->gate()->allows($ability, $arguments);
+        return $this->gate()->allows(Helpers::unwrapEnum($ability), $arguments);
     }
 
     /**
@@ -385,19 +385,19 @@ class Bouncer
      */
     public function canAny($abilities, $arguments = [])
     {
-        return $this->gate()->any($abilities, $arguments);
+        return $this->gate()->any(Helpers::unwrapEnum($abilities), $arguments);
     }
 
     /**
      * Determine if the given ability is denied.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  array|mixed  $arguments
      * @return bool
      */
     public function cannot($ability, $arguments = [])
     {
-        return $this->gate()->denies($ability, $arguments);
+        return $this->gate()->denies(Helpers::unwrapEnum($ability), $arguments);
     }
 
     /**
@@ -406,7 +406,7 @@ class Bouncer
      * Alias for the "can" method.
      *
      * @deprecated
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  array|mixed  $arguments
      * @return bool
      */
@@ -421,7 +421,7 @@ class Bouncer
      * Alias for the "cannot" method.
      *
      * @deprecated
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  array|mixed  $arguments
      * @return bool
      */

@@ -36,7 +36,7 @@ class ChecksRoles
     /**
      * Check if the authority has any of the given roles.
      *
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return bool
      */
     public function a(...$roles)
@@ -47,7 +47,7 @@ class ChecksRoles
     /**
      * Check if the authority doesn't have any of the given roles.
      *
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return bool
      */
     public function notA(...$roles)
@@ -58,7 +58,7 @@ class ChecksRoles
     /**
      * Alias to the "a" method.
      *
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return bool
      */
     public function an(...$roles)
@@ -69,7 +69,7 @@ class ChecksRoles
     /**
      * Alias to the "notA" method.
      *
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return bool
      */
     public function notAn(...$roles)
@@ -80,7 +80,7 @@ class ChecksRoles
     /**
      * Check if the authority has all of the given roles.
      *
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return bool
      */
     public function all(...$roles)

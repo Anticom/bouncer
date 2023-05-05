@@ -61,7 +61,7 @@ trait HasRoles
     /**
      * Assign the given roles to the model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string|array  $roles
+     * @param  \Illuminate\Database\Eloquent\Model|string|array  $roles TODO
      * @return $this
      */
     public function assign($roles)
@@ -74,7 +74,7 @@ trait HasRoles
     /**
      * Retract the given roles from the model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model|string|array  $roles
+     * @param  \Illuminate\Database\Eloquent\Model|string|array  $roles TODO
      * @return $this
      */
     public function retract($roles)
@@ -87,7 +87,7 @@ trait HasRoles
     /**
      * Check if the model has any of the given roles.
      *
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return bool
      */
     public function isAn(...$roles)
@@ -102,7 +102,7 @@ trait HasRoles
      *
      * Alias for the "isAn" method.
      *
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return bool
      */
     public function isA(...$roles)
@@ -113,7 +113,7 @@ trait HasRoles
     /**
      * Check if the model has none of the given roles.
      *
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return bool
      */
     public function isNotAn(...$roles)
@@ -128,7 +128,7 @@ trait HasRoles
      *
      * Alias for the "isNotAn" method.
      *
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return bool
      */
     public function isNotA(...$roles)
@@ -139,7 +139,7 @@ trait HasRoles
     /**
      * Check if the model has all of the given roles.
      *
-     * @param  string  ...$roles
+     * @param  string|\BackedEnum  ...$roles
      * @return bool
      */
     public function isAll(...$roles)
@@ -153,7 +153,7 @@ trait HasRoles
      * Constrain the given query by the provided role.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $role
+     * @param  string|\BackedEnum  $role
      * @return void
      */
     public function scopeWhereIs($query, $role)
@@ -165,7 +165,7 @@ trait HasRoles
      * Constrain the given query by all provided roles.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $role
+     * @param  string|\BackedEnum  $role
      * @return void
      */
     public function scopeWhereIsAll($query, $role)
@@ -177,7 +177,7 @@ trait HasRoles
      * Constrain the given query by the provided role.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $role
+     * @param  string|\BackedEnum  $role
      * @return void
      */
     public function scopeWhereIsNot($query, $role)

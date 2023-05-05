@@ -85,16 +85,16 @@ trait FindsAndCreatesAbilities
     /**
      * Get the abilities for the given model ability descriptors.
      *
-     * @param  array|string  $abilities
+     * @param  array|string|\BackedEnum  $abilities
      * @param  \Illuminate\Database\Eloquent\Model|string|array  $model
      * @param  array  $attributes
      * @return array
      */
     protected function getModelAbilityKeys($abilities, $model, array $attributes)
     {
-        $abilities = Collection::make(is_array($abilities) ? $abilities : [$abilities]);
+        $abilities = Collection::make(Helpers::unwrapEnums($abilities));
 
-        $models = Collection::make(is_array($model) ? $model : [$model]);
+        $models = Collection::make($model);
 
         return $abilities->map(function ($ability) use ($models, $attributes) {
             return $models->map(function ($model) use ($ability, $attributes) {
@@ -106,7 +106,7 @@ trait FindsAndCreatesAbilities
     /**
      * Get an ability for the given entity.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string  $entity
      * @param  array  $attributes
      * @return \Silber\Bouncer\Database\Ability
@@ -123,7 +123,7 @@ trait FindsAndCreatesAbilities
     /**
      * Find the ability for the given entity.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string  $entity
      * @param  array  $attributes
      * @return \Silber\Bouncer\Database\Ability|null
@@ -143,7 +143,7 @@ trait FindsAndCreatesAbilities
     /**
      * Create an ability for the given entity.
      *
-     * @param  string  $ability
+     * @param  string|\BackedEnum  $ability
      * @param  \Illuminate\Database\Eloquent\Model|string  $entity
      * @param  array  $attributes
      * @return \Silber\Bouncer\Database\Ability
@@ -186,7 +186,7 @@ trait FindsAndCreatesAbilities
     /**
      * Get or create abilities by their name.
      *
-     * @param  array|string  $abilities
+     * @param  string[]|\BackedEnum[]|string|\BackedEnum  $abilities
      * @param  array  $attributes
      * @return \Illuminate\Support\Collection
      */
@@ -209,7 +209,7 @@ trait FindsAndCreatesAbilities
      * Create the non-existant abilities by name.
      *
      * @param  \Illuminate\Database\Eloquent\Collection  $existing
-     * @param  string[]  $abilities
+     * @param  string[]|\BackedEnum[]  $abilities
      * @param  array  $attributes
      * @return array
      */
